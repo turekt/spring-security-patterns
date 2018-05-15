@@ -1,0 +1,20 @@
+security:
+  preSharedKey: "08d99378cb708cae9d2e8192c479a823"
+  salt: "81879c1e50e6d3227feb979cce0223a46bb26f4dc08c2dc14802d8774db04a79"
+  jwtSecret: "very hard to guess S3cr3t"
+  jwtIssuer: "weather-service"
+  jwtDuration: 900000
+  iterationCount: 10000
+  keyLength: 128
+  
+eventCatalog:
+  mappings:
+    - "/city/?.*"
+    - "/error/?.*"
+  methods:
+    - "GET"
+    - "POST"
+
+server:
+  port: 9000
+      

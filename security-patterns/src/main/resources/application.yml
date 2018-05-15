@@ -1,0 +1,36 @@
+permissions:
+  adminPermissions:
+    - "/admin"
+    - "/search"
+    - "/state"
+    - "/process"
+  userPermissions:
+    - "/welcome"
+    - "/profile"
+    - "/items"
+    - "/cities"
+    - "/add"
+
+cityService:
+  secret: "Pr3-Sh4r3d S3cr3t"
+  serviceUrl: "http://localhost:9000"
+  authUrl: "/auth"
+  cityUrl: "/city"
+  citySearchUrl: "/search"
+  
+processingService:
+  username: patterns
+  password: patterns
+  serviceUrl: "http://localhost:8181"
+  infoUrl: "/info"
+  cityUrl: "/city"
+  statusUrl: "/status"
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: "jdbc:h2:./patterns"
+  activemq:
+    broker-url: tcp://localhost:61616

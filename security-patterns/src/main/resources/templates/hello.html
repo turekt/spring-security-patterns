@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="header :: header"/>
+    <body>
+        <nav th:replace="nav :: nav"/>
+        <h1 class="text-center">Prognoza vremena</h1>
+        <div class="container">
+            <div th:if="${cities != null and not #lists.isEmpty(cities)}">
+                <form class="form-inline" th:action="@{/welcome}" method="post" th:object="${city}" style="padding-bottom:20px;">
+                        <select class="form-control" th:field="*{id}">
+                            <option th:each="dropDownItem : ${cities}"
+                                            th:value="${dropDownItem.id}"
+                                            th:text="${dropDownItem.name}" />
+                        </select>
+                        <button type="submit" class="btn btn-default">Prikaz prognoze</button>
+                </form>
+                
+           </div>
+            <div th:if="${cities == null or #lists.isEmpty(cities)}" class="alert alert-warning" role="alert">
+               <div>Nemate dodanih mjesta. Upotrijebite stranicu <a href="/cities">dostupnih mjesta</a> kako biste dodali mjesta u obradu.</div>
+            </div>
+            <div th:if="${forecasts != null and not #lists.isEmpty(forecasts)}">
+                <h3>Prognoza za <span th:text="${forecasts[0].city.name}"/></h3>
+            </div>
+            <table class="table table-hover" th:if="${forecasts != null}">
+                <thead>
+                    <th>#</th>
+                    <th>Datum</th>
+                    <th>Temp</th>
+                    <th>Temp max</th>
+                    <th>Temp min</th>
+                    <th>Vlažnost</th>
+                    <th>Tlak</th>
+                </thead>
+                <tbody>
+                    <tr th:each="forecast : ${forecasts}">
+                        <td><span th:text="${forecast.id}"/></td>
+                        <td><span th:text="${forecast.forecastTime}"/></td>
+                        <td><span th:text="${forecast.temp}"/></td>
+                        <td><span th:text="${forecast.tempMax}"/></td>
+                        <td><span th:text="${forecast.tempMin}"/></td>
+                        <td><span th:text="${forecast.humidity}"/></td>
+                        <td><span th:text="${forecast.pressure}"/></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div th:if="${(cities != null and not #lists.isEmpty(cities)) and (forecasts == null or #lists.isEmpty(forecasts))}" class="alert alert-warning" role="alert">
+               <div>Ne postoji prognoza za odabrano mjesto. Pokušajte ponovno kasnije.</div>
+            </div>
+        </div>
+    </body>
+</html>

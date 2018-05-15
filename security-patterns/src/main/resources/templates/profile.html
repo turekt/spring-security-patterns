@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="header :: header"/>
+    <body>
+        <nav th:replace="nav :: nav"/>
+        <h1 class="text-center">Korisnički račun</h1>
+        <div class="container">
+            <div>
+                <h3>Korisničko ime</h3><h4><span th:text='${username}'/></h4>
+            </div>
+            <hr/>
+            <div>
+                <h3>Mjesta koje pratite:</h3>
+            </div>
+            <hr/>
+            <table class="table table-hover" th:if="${cities != null}">
+                <thead>
+                    <th>#</th>
+                    <th>Naziv</th>
+                    <th>Širina</th>
+                    <th>Dužina</th>
+                </thead>
+                <tbody>
+                    <tr th:each="city : ${cities}">
+                        <td><span th:text="${city.id}"/></td>
+                        <td><span th:text="${city.name}"/></td>
+                        <td><span th:text="${city.coord.lat}"/></td>
+                        <td><span th:text="${city.coord.lon}"/></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div th:if="${cities != null and #lists.isEmpty(cities)}" class="alert alert-warning" role="alert">
+                Ne postoje mjesta koje pratite. Dodajte ih putem stranice <a href="/cities">dostupnih mjesta</a>.
+            </div>
+        </div>
+    </body>
+</html>

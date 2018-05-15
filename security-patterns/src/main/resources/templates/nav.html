@@ -1,0 +1,19 @@
+<nav class="navbar navbar-default" th:fragment="nav">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/welcome">
+                <span>Uzorci dizajna za sigurnost</span>
+            </a>
+        </div>
+        <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
+            <li><a href="/welcome">Prognostički podaci</a></li>
+            <li><a href="/cities">Dostupna mjesta</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/process">Mjesta u obradi</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/search">Pretraživanje lokacija</a></li>
+            <li><a href="/profile">Korisnički račun</a></li>
+        </ul>
+        <form th:action="@{/logout}" method="post" class="navbar-form navbar-right" sec:authorize="isAuthenticated()">
+            <button type="submit" class="btn btn-danger">Odjava</button>
+        </form>
+    </div>
+</nav>

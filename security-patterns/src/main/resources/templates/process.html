@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="header :: header"/>
+    <body>
+        <nav th:replace="nav :: nav"/>
+        <h1 class="text-center">Obrada</h1>
+        <div class="container">
+            <div th:if="${success != null and not success}" class="alert alert-danger" role="alert">
+                Dogodila se kritična pogreška. Molimo Vas da kontaktirate administratora.
+            </div>
+            <div>
+                <h3>Mjesta u obradi:</h3>
+            </div>
+            <hr/>
+            <table class="table table-hover" th:if="${cities != null}">
+                <thead>
+                    <th>#</th>
+                    <th>Naziv</th>
+                    <th>Širina</th>
+                    <th>Dužina</th>
+                    <th>Stanje</th>
+                </thead>
+                <tbody>
+                    <tr th:each="city : ${cities}">
+                        <td><span th:text="${city.id}"/></td>
+                        <td><span th:text="${city.name}"/></td>
+                        <td><span th:text="${city.coord.lat}"/></td>
+                        <td><span th:text="${city.coord.lon}"/></td>
+                        <td><span th:text="${city.status}"/></td>
+                        <td>
+                            <form th:action="@{/process}" method="post">
+                                <input type="hidden" name="cityid" th:value="${city.id}"/>
+                                <input type="hidden" name="citystatus" th:value="${city.status}"/>
+                                <button type="submit" class="btn btn-default">
+                                    <span th:if="${city.status == 'RUNNING'}" th:text='Stop'/>
+                                    <span th:if="${city.status == 'STOPPED'}" th:text='Start'/>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div th:if="${cities != null and #lists.isEmpty(cities)}" class="alert alert-warning" role="alert">
+                Nema mjesta u obradi. Dodajte ih putem stranice za <a href="/search">pretraživanje</a>.
+            </div>
+        </div>
+    </body>
+</html>

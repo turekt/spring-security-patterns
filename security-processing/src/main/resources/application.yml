@@ -1,0 +1,24 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: "jdbc:h2:./processing"
+    
+server:
+  port: 8181
+    
+security:
+    salt: ba4484ae0a6bb673bcb083651b55893a1ce8c5b1f47646d7ce2f749880cd85c1
+    username: patterns
+    password: 2ed12a3b754904611e12fdcaf4fdb20b
+    role: USER
+    iterationCount: 10000
+    keyLength: 128
+    cipherPassword: S3cur1ty-P4tt3rns
+
+openWeatherMap:
+    url: "http://api.openweathermap.org/data/2.5/forecast?id={id}&APPID={APPID}&units={units}&lang={lang}"
+    apiKey: 
+    units: metric
+    lang: en
